@@ -4,9 +4,10 @@ AS = clang
 LD = rust-lld
 AR = llvm-ar
 RANLIB = llvm-ranlib
+ARCH = aarch64
 
 CFLAGS = \
-	--target=aarch64-unknown-none \
+	--target=$(ARCH)-unknown-none \
 	-nostdlib \
 	-nostdinc \
 	-fno-builtin \
@@ -19,7 +20,7 @@ CFLAGS = \
 
 ASFLAGS = $(CFLAGS)
 
-OBJS = src/syscall/aarch64/syscall.o \
+OBJS = src/syscall/$(ARCH)/syscall.o \
        src/syscall/generic/write.o
 
 TARGET = libhnxc.a

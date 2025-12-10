@@ -1,18 +1,18 @@
 # libc/Makefile (修正版)
 CC = clang
 AS = clang
-LD = rust-lld
 AR = llvm-ar
 RANLIB = llvm-ranlib
 ARCH = aarch64
 
+# 问题2: --target 参数格式错误
 CFLAGS = \
 	--target=$(ARCH)-unknown-none \
 	-nostdlib \
 	-nostdinc \
 	-fno-builtin \
 	-ffreestanding \
-	-I./include \
+	-I./sysroot/$(ARCH)/include \
 	-O2 \
 	-mgeneral-regs-only \
 	-fno-stack-protector \

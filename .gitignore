@@ -1,1 +1,7 @@
 build
+.tmp*
+.vscode
+*.o
+*.elf
+.DS_Store
+linker.ld

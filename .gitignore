@@ -7,3 +7,4 @@ build
 linker.ld
 libhnxc.a
 tmp*
+tests

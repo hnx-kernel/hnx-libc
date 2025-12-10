@@ -1,11 +1,10 @@
-# libc/Makefile (修正版)
+# libc/Makefile
 CC = clang
 AS = clang
 AR = llvm-ar
 RANLIB = llvm-ranlib
 ARCH = aarch64
 
-# 问题2: --target 参数格式错误
 CFLAGS = \
 	--target=$(ARCH)-unknown-none \
 	-nostdlib \
@@ -13,6 +12,7 @@ CFLAGS = \
 	-fno-builtin \
 	-ffreestanding \
 	-I./sysroot/$(ARCH)/include \
+	-I./include \
 	-O2 \
 	-mgeneral-regs-only \
 	-fno-stack-protector \
@@ -20,8 +20,10 @@ CFLAGS = \
 
 ASFLAGS = $(CFLAGS)
 
-OBJS = src/syscall/$(ARCH)/syscall.o \
-       src/syscall/generic/write.o
+# 自动发现源文件
+C_SRCS = $(shell find src -name "*.c")
+ASM_SRCS = $(shell find src -name "*.S")
+OBJS = $(C_SRCS:.c=.o) $(ASM_SRCS:.S=.o)
 
 TARGET = libhnxc.a
 
@@ -29,7 +31,7 @@ all: $(TARGET)
 
 $(TARGET): $(OBJS)
 	$(AR) rcs $@ $(OBJS)
-	$(RANLIB) $@  # 为静态库建立索引，有时是必须的
+	$(RANLIB) $@
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@

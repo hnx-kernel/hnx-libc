@@ -1,0 +1,21 @@
+[binaries]
+c = 'aarch64-hnx-gcc'
+cpp = 'aarch64-hnx-g++'
+ar = 'aarch64-hnx-ar'
+as = 'aarch64-hnx-as'
+ld = 'aarch64-hnx-ld'
+strip = 'aarch64-hnx-strip'
+
+[host_machine]
+system = 'hnix'
+cpu_family = 'aarch64'
+cpu = 'aarch64'
+endian = 'little'
+
+[properties]
+needs_exe_wrapper = true
+sys_root = '/path/to/hnx/sysroot'
+
+[built-in options]
+c_args = ['-ffreestanding', '-nostdlib', '-fno-builtin']
+c_link_args = ['-nostdlib', '-lgcc']

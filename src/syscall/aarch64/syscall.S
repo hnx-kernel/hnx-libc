@@ -4,17 +4,16 @@
 .hidden __syscall
 
 /* long __syscall(long number, ...); */
-/* x0=syscall number, x1-x5=arguments */
 __syscall:
-    /* Validate syscall number (optional) */
-    cmp x0, #0
-    b.le .Linvalid_syscall
-    
-    /* Trigger system call */
+    mov x8, x0
+    mov x0, x1
+    mov x1, x2
+    mov x2, x3
+    mov x3, x4
+    mov x4, x5
     svc #0
     ret
 
 .Linvalid_syscall:
-    /* Return -ENOSYS */
     mov x0, #-38
     ret
